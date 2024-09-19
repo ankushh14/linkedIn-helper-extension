@@ -1,6 +1,6 @@
 import ArrowDown from "./ArrowDown";
 import ArrowRight from "./ArrowRight";
 import MagicPen from "./MagicPen";
-import Regenerate from "./Regenerate";
+import RegenerateIcon from "./RegenerateIcon";
 
-export { ArrowDown, ArrowRight, MagicPen, Regenerate };
+export { ArrowDown, ArrowRight, MagicPen, RegenerateIcon };
