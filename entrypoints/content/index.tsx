@@ -1,26 +1,33 @@
 import ReactDOM from "react-dom/client";
+import { ContentScriptContext } from "wxt/client";
 import App from "./App.tsx";
 import "./globals.css";
 
+const injectReactApp = async (ctx: ContentScriptContext) => {
+  const ui = await createShadowRootUi(ctx, {
+    name: "wxt-react-example",
+    position: "inline",
+    anchor: "body",
+    onMount: (container) => {
+      const wrapper = document.createElement("div");
+      container.append(wrapper);
+      const root = ReactDOM.createRoot(wrapper);
+      root.render(<App />);
+      return { root, wrapper };
+    },
+    onRemove: (elements) => {
+      elements?.root.unmount();
+      elements?.wrapper.remove();
+    },
+  });
+  return ui;
+};
+
 export default defineContentScript({
-  matches: ["*://*.google.com/*"],
+  matches: ["*://*.linkedin.com/*"],
   cssInjectionMode: "ui",
   async main(ctx) {
-    const ui = await createShadowRootUi(ctx, {
-      name: "wxt-react-example",
-      position: "inline",
-      anchor: "body",
-      append: "first",
-      onMount: (container) => {
-        const root = ReactDOM.createRoot(container);
-        root.render(<App />);
-        return root;
-      },
-      onRemove: (root) => {
-        root?.unmount();
-      },
-    });
-
+    const ui = await injectReactApp(ctx);
     ui.mount();
   },
 });
