@@ -11,6 +11,9 @@ const PromptModal = ({ modal, setModal }: PromptModalProps) => {
   const messageContainerRef = React.useRef<HTMLElement>();
 
   const closeModal = () => {
+    if (messageContainerRef.current) {
+      messageContainerRef.current.focus();
+    }
     setModal(false);
   };
 
@@ -70,6 +73,10 @@ const PromptModal = ({ modal, setModal }: PromptModalProps) => {
       };
     }
   }, [modal]);
+
+  if (!modal) {
+    return;
+  }
 
   return (
     <div
