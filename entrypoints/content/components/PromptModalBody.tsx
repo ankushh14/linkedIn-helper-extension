@@ -38,7 +38,7 @@ const PromptModalBody = ({
   };
 
   const InjectTextHandler = () => {
-    messageContainerRef.current?.parentElement?.nextElementSibling?.classList.remove(
+    messageContainerRef.current?.parentElement?.lastElementChild?.classList.remove(
       LINKEDIN_PLACEHOLDER_CLASS
     );
     messageContainerRef.current!.innerText = generatedResponse;

@@ -53,8 +53,8 @@ const PromptModal = ({ modal, setModal }: PromptModalProps) => {
 
       if (document.activeElement instanceof HTMLElement) {
         const helperButton = document.activeElement as HTMLElement;
-        messageContainerRef.current =
-          helperButton.previousElementSibling as HTMLElement;
+        messageContainerRef.current = helperButton.previousElementSibling
+          ?.firstElementChild as HTMLElement;
       }
 
       const focusableElements = modalElement?.querySelectorAll(

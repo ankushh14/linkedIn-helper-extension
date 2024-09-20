@@ -1,4 +1,5 @@
-export const LINKEDIN_MSG_CONTAINER = ".msg-form__contenteditable";
+export const LINKEDIN_MSG_CONTAINER =
+  ".msg-form__msg-content-container--scrollable";
 
 export const LINKEDIN_PLACEHOLDER_CLASS = "msg-form__placeholder";
 
