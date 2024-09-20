@@ -15,15 +15,24 @@ const App = () => {
       const container = target.closest(LINKEDIN_MSG_CONTAINER) as HTMLElement;
       if (container) {
         setFocusedElement(container);
-      } else {
+      }
+    };
+
+    const handleFocusOut = (event: FocusEvent) => {
+      const target = event.target as HTMLElement;
+      const container = target.closest(LINKEDIN_MSG_CONTAINER) as HTMLElement;
+      const relatedTarget = event.relatedTarget as HTMLElement;
+      if (container && (!relatedTarget || !container.contains(relatedTarget))) {
         setFocusedElement(null);
       }
     };
 
     document.addEventListener("focusin", handleFocusIn);
+    document.addEventListener("focusout", handleFocusOut);
 
     return () => {
       document.removeEventListener("focusin", handleFocusIn);
+      document.removeEventListener("focusout", handleFocusOut);
     };
   }, []);
 
