@@ -12,24 +12,18 @@ const App = () => {
   useEffect(() => {
     const handleFocusIn = (event: Event) => {
       const target = event.target as HTMLElement;
-      if (target && target.matches(LINKEDIN_MSG_CONTAINER)) {
-        setFocusedElement(target);
-      }
-    };
-
-    const handleFocusOut = (event: Event) => {
-      const target = event.target as HTMLElement;
-      if (target && !target.matches(LINKEDIN_MSG_CONTAINER)) {
+      const container = target.closest(LINKEDIN_MSG_CONTAINER) as HTMLElement;
+      if (container) {
+        setFocusedElement(container);
+      } else {
         setFocusedElement(null);
       }
     };
 
     document.addEventListener("focusin", handleFocusIn);
-    document.addEventListener("focusout", handleFocusOut);
 
     return () => {
       document.removeEventListener("focusin", handleFocusIn);
-      document.removeEventListener("focusout", handleFocusOut);
     };
   }, []);
 
