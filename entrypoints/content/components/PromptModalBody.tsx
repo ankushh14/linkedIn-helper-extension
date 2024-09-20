@@ -38,14 +38,19 @@ const PromptModalBody = ({
   };
 
   const InjectTextHandler = () => {
+    // Remove default placeholder on input text field
     messageContainerRef.current?.parentElement?.lastElementChild?.classList.remove(
       LINKEDIN_PLACEHOLDER_CLASS
     );
+
+    // insert generated response into input text field
     messageContainerRef.current!.firstElementChild!.innerHTML =
       generatedResponse;
     setChats([]);
     setSecondaryBtns(false);
     setGeneratedResponse("");
+
+    // return focus to input text field
     messageContainerRef.current?.focus();
     setModal(false);
   };

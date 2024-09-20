@@ -9,6 +9,7 @@ type ChatAIComponentProps = {
 const ChatAIComponent = ({ chats, loadingState }: ChatAIComponentProps) => {
   const chatBodyRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
+    // scroll to bottom when chat container scrollbar appears
     if (chatBodyRef.current) {
       chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
     }

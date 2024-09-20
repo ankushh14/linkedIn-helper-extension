@@ -8,6 +8,8 @@ type PromptModalProps = {
 
 const PromptModal = ({ modal, setModal }: PromptModalProps) => {
   const modalRef = React.useRef<HTMLDivElement>(null);
+
+  // Target input text field ref
   const messageContainerRef = React.useRef<HTMLElement>();
 
   const closeModal = () => {
@@ -35,6 +37,7 @@ const PromptModal = ({ modal, setModal }: PromptModalProps) => {
           'a[href], button:not(:disabled), textarea:not(:disabled), input:not(:disabled), select:not(:disabled), [tabindex]:not([tabindex="-1"])'
         ) as NodeListOf<HTMLElement>;
 
+        // Filter elements having classname "hidden"
         const focusableElements = [...allFocusableElements].filter(
           (el) => !el.classList.contains("hidden")
         );
@@ -42,6 +45,7 @@ const PromptModal = ({ modal, setModal }: PromptModalProps) => {
         const firstElement = focusableElements[0];
         const lastElement = focusableElements[focusableElements.length - 1];
 
+        // handle tab key
         if (e.key === "Tab") {
           if (e.shiftKey) {
             if (
@@ -63,12 +67,14 @@ const PromptModal = ({ modal, setModal }: PromptModalProps) => {
         }
       };
 
+      // Store input text field ref into messageContainerRef
       if (document.activeElement instanceof HTMLElement) {
         const helperButton = document.activeElement as HTMLElement;
         messageContainerRef.current = helperButton.previousElementSibling
           ?.firstElementChild as HTMLElement;
       }
 
+      // Focus on first element in modal when opened
       const focusableElements = modalRef.current?.querySelectorAll(
         'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])'
       ) as NodeListOf<HTMLElement>;

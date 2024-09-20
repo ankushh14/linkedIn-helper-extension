@@ -10,6 +10,7 @@ const App = () => {
   );
 
   useEffect(() => {
+    // handles when input text field is focused
     const handleFocusIn = (event: Event) => {
       const target = event.target as HTMLElement;
       const container = target.closest(LINKEDIN_MSG_CONTAINER) as HTMLElement;
@@ -18,6 +19,7 @@ const App = () => {
       }
     };
 
+    // handles when input text field moves out of focus
     const handleFocusOut = (event: FocusEvent) => {
       const target = event.target as HTMLElement;
       const container = target.closest(LINKEDIN_MSG_CONTAINER) as HTMLElement;

@@ -12,6 +12,7 @@ const CreateHelperButton = ({
   setModal,
 }: CreateHelperButtonProps) => {
   useEffect(() => {
+    // add position relative to parent of helper button
     if (
       container.style.position !== "relative" &&
       container.style.position !== "absolute" &&
