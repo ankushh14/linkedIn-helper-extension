@@ -5,7 +5,7 @@ import "./globals.css";
 
 const injectReactApp = async (ctx: ContentScriptContext) => {
   const ui = await createShadowRootUi(ctx, {
-    name: "wxt-react-example",
+    name: "linkedin-helper-extension",
     position: "inline",
     anchor: "body",
     onMount: (container) => {
