@@ -46,6 +46,7 @@ const PromptModalBody = ({
     setChats([]);
     setSecondaryBtns(false);
     setGeneratedResponse("");
+    messageContainerRef.current?.focus();
     setModal(false);
   };
 
@@ -66,18 +67,18 @@ const PromptModalBody = ({
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
         />
-        {secondaryBtns ? (
-          <SecondaryBtns injectHandler={InjectTextHandler} />
-        ) : (
-          <Button
-            type="submit"
-            className="w-fit flex justify-center items-center gap-3"
-            disabled={loading}
-          >
-            <ArrowRight width="15" height="15" />
-            Generate
-          </Button>
-        )}
+        <SecondaryBtns
+          injectHandler={InjectTextHandler}
+          showBtns={secondaryBtns}
+        />
+        <Button
+          type="submit"
+          className={`w-fit justify-center items-center gap-3  ${secondaryBtns ? "hidden" : "flex"}`}
+          disabled={loading}
+        >
+          <ArrowRight width="15" height="15" />
+          Generate
+        </Button>
       </form>
     </article>
   );
@@ -85,15 +86,16 @@ const PromptModalBody = ({
 
 type SecondaryBtnsProps = {
   injectHandler: () => void;
+  showBtns: boolean;
 };
 
-const SecondaryBtns = ({ injectHandler }: SecondaryBtnsProps) => {
+const SecondaryBtns = ({ injectHandler, showBtns }: SecondaryBtnsProps) => {
   return (
-    <div className="flex gap-4 justify-center items-center">
+    <div className={`gap-4 justify-center items-center flex`}>
       <Button
         variant="outline"
         type="button"
-        className="w-fit flex justify-center items-center gap-2"
+        className={`w-fit justify-center items-center gap-2 ${showBtns ? "flex" : "hidden"}`}
         onClick={injectHandler}
       >
         <ArrowDown width="15" height="15" />
@@ -102,7 +104,7 @@ const SecondaryBtns = ({ injectHandler }: SecondaryBtnsProps) => {
       <Button
         type="button"
         disabled
-        className="w-fit flex justify-center items-center gap-1"
+        className={`w-fit flex justify-center items-center gap-1 ${showBtns ? "flex" : "hidden"}`}
       >
         <RegenerateIcon width="15" height="15" />
         Regenerate

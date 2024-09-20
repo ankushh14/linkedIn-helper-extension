@@ -26,29 +26,38 @@ const PromptModal = ({ modal, setModal }: PromptModalProps) => {
   React.useEffect(() => {
     addEventListener("keydown", handleExitOnEscape);
     return () => removeEventListener("keydown", handleExitOnEscape);
-  });
+  }, []);
 
   React.useEffect(() => {
     if (modal) {
-      const modalElement = modalRef.current;
-
       const handleFocusTrap = (e: KeyboardEvent) => {
-        const focusableElements = modalRef?.current?.querySelectorAll(
-          'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])'
+        const allFocusableElements = modalRef?.current?.querySelectorAll(
+          'a[href], button:not(:disabled), textarea:not(:disabled), input:not(:disabled), select:not(:disabled), [tabindex]:not([tabindex="-1"])'
         ) as NodeListOf<HTMLElement>;
+
+        const focusableElements = [...allFocusableElements].filter(
+          (el) => !el.classList.contains("hidden")
+        );
+
         const firstElement = focusableElements[0];
         const lastElement = focusableElements[focusableElements.length - 1];
 
         if (e.key === "Tab") {
           if (e.shiftKey) {
-            if (document.activeElement === firstElement) {
-              e.preventDefault();
+            if (
+              document.activeElement?.shadowRoot &&
+              document.activeElement.shadowRoot.activeElement === firstElement
+            ) {
               lastElement.focus();
+              e.preventDefault();
             }
           } else {
-            if (document.activeElement === lastElement) {
-              e.preventDefault();
+            if (
+              document.activeElement?.shadowRoot &&
+              document.activeElement.shadowRoot.activeElement === lastElement
+            ) {
               firstElement.focus();
+              e.preventDefault();
             }
           }
         }
@@ -60,22 +69,22 @@ const PromptModal = ({ modal, setModal }: PromptModalProps) => {
           ?.firstElementChild as HTMLElement;
       }
 
-      const focusableElements = modalElement?.querySelectorAll(
+      const focusableElements = modalRef.current?.querySelectorAll(
         'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])'
       ) as NodeListOf<HTMLElement>;
-      if (focusableElements.length) {
+      if (focusableElements && focusableElements.length) {
         focusableElements[0].focus();
       }
 
-      window.addEventListener("keydown", handleFocusTrap);
+      modalRef.current?.addEventListener("keydown", handleFocusTrap);
       return () => {
-        window.removeEventListener("keydown", handleFocusTrap);
+        modalRef.current?.removeEventListener("keydown", handleFocusTrap);
       };
     }
   }, [modal]);
 
   if (!modal) {
-    return;
+    return null;
   }
 
   return (
