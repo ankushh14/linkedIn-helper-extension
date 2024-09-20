@@ -1,5 +1,5 @@
 const BounceLoader = () => {
-  const spanStyles = `w-3 h-3 bg-[#9b59b6] mx-1 animate-bounce duration-300 rounded-full`;
+  const spanStyles = `w-3 h-3 bg-[#9b59b6] m-1 animate-bounce duration-300 rounded-full`;
   return (
     <span className="w-fit flex justify-center items-center">
       <span
