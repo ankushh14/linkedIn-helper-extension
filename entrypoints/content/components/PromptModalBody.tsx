@@ -41,7 +41,8 @@ const PromptModalBody = ({
     messageContainerRef.current?.parentElement?.lastElementChild?.classList.remove(
       LINKEDIN_PLACEHOLDER_CLASS
     );
-    messageContainerRef.current!.innerText = generatedResponse;
+    messageContainerRef.current!.firstElementChild!.innerHTML =
+      generatedResponse;
     setChats([]);
     setSecondaryBtns(false);
     setGeneratedResponse("");
@@ -50,7 +51,7 @@ const PromptModalBody = ({
 
   return (
     <article
-      className="w-full max-w-[600px] bg-modalBg rounded-2xl flex flex-col items-center p-7 gap-4 overflow-hidden text-gray-500"
+      className="w-full max-w-[600px] max-h-[100vh] bg-modalBg rounded-2xl flex flex-col items-center p-7 gap-4 text-gray-500"
       onClick={(e) => e.stopPropagation()}
     >
       <ChatAIComponent chats={chats} loadingState={loading} />
