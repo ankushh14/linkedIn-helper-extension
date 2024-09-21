@@ -9,3 +9,8 @@
 - This is purely an assessment project and is not meant for use.
 
 **This repository is a coding assessment provided by ChatGPTWriter. The project demonstrates the implementation of a Chrome Extension that helps users generate appropriate and contextually relevant responses to LinkedIn messages.**
+
+
+
+https://github.com/user-attachments/assets/f823eab3-a37c-4279-a689-cfe469c9454a
+
